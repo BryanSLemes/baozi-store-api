@@ -1,0 +1,532 @@
+{
+  "info": {
+    "name": "Baozi Store - UNINTER - Atividade Prática",
+    "description": "Cenário acadêmico da Baozi Store. Execute de 01 a 12. Os POSTs capturam os IDs e os DELETEs excluem primeiro o pedido.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 - POST Cadastrar cliente",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/clientes",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "clientes"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Bryan Silva Lemes5262978\",\n  \"clienteDesde\": \"2026-11-09\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.collectionVariables.unset(\"clienteId\");",
+              "pm.test(\"201 - Registro criado\", () => pm.response.to.have.status(201));",
+              "if (pm.response.code === 201) {",
+              "    const registro = pm.response.json();",
+              "    pm.test(\"JSON do cenário e identificador gerado\", () => {",
+              "        pm.expect(Number.isInteger(registro.id) && registro.id > 0).to.be.true;",
+              "        pm.expect(registro.nome).to.eql(\"Bryan Silva Lemes5262978\");",
+              "        pm.expect(registro.clienteDesde).to.eql(\"2026-11-09\");",
+              "    });",
+              "    pm.test(\"Location aponta para o registro criado\", () => {",
+              "        pm.expect(pm.response.headers.get(\"Location\")).to.eql(pm.request.url.getPath() + \"/\" + registro.id);",
+              "    });",
+              "    pm.collectionVariables.set(\"clienteId\", String(registro.id));",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - POST Cadastrar produto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/produtos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "produtos"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Baozi tradicional\",\n  \"preco\": 10.00,\n  \"estoque\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.collectionVariables.unset(\"produtoId\");",
+              "pm.test(\"201 - Registro criado\", () => pm.response.to.have.status(201));",
+              "if (pm.response.code === 201) {",
+              "    const registro = pm.response.json();",
+              "    pm.test(\"JSON do cenário e identificador gerado\", () => {",
+              "        pm.expect(Number.isInteger(registro.id) && registro.id > 0).to.be.true;",
+              "        pm.expect(registro.nome).to.eql(\"Baozi tradicional\");",
+              "        pm.expect(registro.preco).to.eql(10);",
+              "        pm.expect(registro.estoque).to.eql(true);",
+              "    });",
+              "    pm.test(\"Location aponta para o registro criado\", () => {",
+              "        pm.expect(pm.response.headers.get(\"Location\")).to.eql(pm.request.url.getPath() + \"/\" + registro.id);",
+              "    });",
+              "    pm.collectionVariables.set(\"produtoId\", String(registro.id));",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - POST Registrar pedido",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/pedidos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "pedidos"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"clienteId\": {{clienteId}},\n  \"produtoId\": {{produtoId}},\n  \"quantidade\": 3\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.collectionVariables.unset(\"pedidoId\");",
+              "pm.test(\"201 - Registro criado\", () => pm.response.to.have.status(201));",
+              "if (pm.response.code === 201) {",
+              "    const registro = pm.response.json();",
+              "    pm.test(\"JSON do cenário e identificador gerado\", () => {",
+              "        pm.expect(Number.isInteger(registro.id) && registro.id > 0).to.be.true;",
+              "        pm.expect(registro.clienteId).to.eql(Number(pm.collectionVariables.get(\"clienteId\")));",
+              "        pm.expect(registro.produtoId).to.eql(Number(pm.collectionVariables.get(\"produtoId\")));",
+              "        pm.expect(registro.quantidade).to.eql(3);",
+              "    });",
+              "    pm.test(\"Location aponta para o registro criado\", () => {",
+              "        pm.expect(pm.response.headers.get(\"Location\")).to.eql(pm.request.url.getPath() + \"/\" + registro.id);",
+              "    });",
+              "    pm.collectionVariables.set(\"pedidoId\", String(registro.id));",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Listar clientes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/clientes",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "clientes"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"200 - Consulta bem-sucedida\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Resposta contém o registro criado neste cenário\", () => {",
+              "    const id = Number(pm.collectionVariables.get(\"clienteId\"));",
+              "    const registro = pm.response.json().find(item => item.id === id);",
+              "    pm.expect(registro).to.be.an(\"object\");",
+              "    pm.expect(registro.id).to.eql(id);",
+              "    pm.expect(registro.nome).to.eql(\"Bryan Silva Lemes5262978\");",
+              "    pm.expect(registro.clienteDesde).to.eql(\"2026-11-09\");",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - Listar produtos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/produtos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "produtos"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"200 - Consulta bem-sucedida\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Resposta contém o registro criado neste cenário\", () => {",
+              "    const id = Number(pm.collectionVariables.get(\"produtoId\"));",
+              "    const registro = pm.response.json().find(item => item.id === id);",
+              "    pm.expect(registro).to.be.an(\"object\");",
+              "    pm.expect(registro.id).to.eql(id);",
+              "    pm.expect(registro.nome).to.eql(\"Baozi tradicional\");",
+              "    pm.expect(registro.preco).to.eql(10);",
+              "    pm.expect(registro.estoque).to.eql(true);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - Listar pedidos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/pedidos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "pedidos"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"200 - Consulta bem-sucedida\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Resposta contém o registro criado neste cenário\", () => {",
+              "    const id = Number(pm.collectionVariables.get(\"pedidoId\"));",
+              "    const registro = pm.response.json().find(item => item.id === id);",
+              "    pm.expect(registro).to.be.an(\"object\");",
+              "    pm.expect(registro.id).to.eql(id);",
+              "    pm.expect(registro.clienteId).to.eql(Number(pm.collectionVariables.get(\"clienteId\")));",
+              "    pm.expect(registro.produtoId).to.eql(Number(pm.collectionVariables.get(\"produtoId\")));",
+              "    pm.expect(registro.quantidade).to.eql(3);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 - Consultar cliente por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/clientes/{{clienteId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "clientes",
+            "{{clienteId}}"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"200 - Consulta bem-sucedida\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Resposta contém o registro criado neste cenário\", () => {",
+              "    const id = Number(pm.collectionVariables.get(\"clienteId\"));",
+              "    const registro = pm.response.json();",
+              "    pm.expect(registro).to.be.an(\"object\");",
+              "    pm.expect(registro.id).to.eql(id);",
+              "    pm.expect(registro.nome).to.eql(\"Bryan Silva Lemes5262978\");",
+              "    pm.expect(registro.clienteDesde).to.eql(\"2026-11-09\");",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "08 - Consultar produto por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/produtos/{{produtoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "produtos",
+            "{{produtoId}}"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"200 - Consulta bem-sucedida\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Resposta contém o registro criado neste cenário\", () => {",
+              "    const id = Number(pm.collectionVariables.get(\"produtoId\"));",
+              "    const registro = pm.response.json();",
+              "    pm.expect(registro).to.be.an(\"object\");",
+              "    pm.expect(registro.id).to.eql(id);",
+              "    pm.expect(registro.nome).to.eql(\"Baozi tradicional\");",
+              "    pm.expect(registro.preco).to.eql(10);",
+              "    pm.expect(registro.estoque).to.eql(true);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "09 - Consultar pedido por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/pedidos/{{pedidoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "pedidos",
+            "{{pedidoId}}"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"200 - Consulta bem-sucedida\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Resposta contém o registro criado neste cenário\", () => {",
+              "    const id = Number(pm.collectionVariables.get(\"pedidoId\"));",
+              "    const registro = pm.response.json();",
+              "    pm.expect(registro).to.be.an(\"object\");",
+              "    pm.expect(registro.id).to.eql(id);",
+              "    pm.expect(registro.clienteId).to.eql(Number(pm.collectionVariables.get(\"clienteId\")));",
+              "    pm.expect(registro.produtoId).to.eql(Number(pm.collectionVariables.get(\"produtoId\")));",
+              "    pm.expect(registro.quantidade).to.eql(3);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "10 - Excluir pedido",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/pedidos/{{pedidoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "pedidos",
+            "{{pedidoId}}"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"204 - Registro excluído sem corpo\", () => {",
+              "    pm.response.to.have.status(204);",
+              "    pm.expect(pm.response.text()).to.eql(\"\");",
+              "});",
+              "if (pm.response.code === 204) pm.collectionVariables.unset(\"pedidoId\");"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "11 - Excluir produto",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/produtos/{{produtoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "produtos",
+            "{{produtoId}}"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"204 - Registro excluído sem corpo\", () => {",
+              "    pm.response.to.have.status(204);",
+              "    pm.expect(pm.response.text()).to.eql(\"\");",
+              "});",
+              "if (pm.response.code === 204) pm.collectionVariables.unset(\"produtoId\");"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "12 - Excluir cliente",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/clientes/{{clienteId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "clientes",
+            "{{clienteId}}"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"204 - Registro excluído sem corpo\", () => {",
+              "    pm.response.to.have.status(204);",
+              "    pm.expect(pm.response.text()).to.eql(\"\");",
+              "});",
+              "if (pm.response.code === 204) pm.collectionVariables.unset(\"clienteId\");"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "clienteId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "produtoId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "pedidoId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

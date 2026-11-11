@@ -1,0 +1,10 @@
+/target/
+/data/
+/.idea/
+/.settings/
+/.classpath
+/.project
+*.iml
+*.log
+
+/baozi-store-db*

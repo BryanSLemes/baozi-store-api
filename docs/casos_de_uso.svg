@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1050" viewBox="0 0 1200 1050"
+    role="img" aria-labelledby="titulo descricao">
+  <title id="titulo">Diagrama de casos de uso da API Baozi Store</title>
+  <desc id="descricao">Usuário da API associado a cinco casos de uso de cada entidade: criar, listar, consultar, atualizar e excluir.</desc>
+  <style>
+    text { font-family: Arial, sans-serif; font-size: 23px; fill: #18202a; stroke: none; text-anchor: middle; }
+    .rotulo { font-weight: bold; font-size: 24px; }
+    ellipse { fill: #f4f8fb; stroke: #253345; stroke-width: 2; }
+  </style>
+  <rect width="1200" height="1050" fill="#ffffff" />
+  <rect x="283" y="21" width="888" height="1008" fill="#ffffff" stroke="#253345" stroke-width="2.5" />
+  <text x="730" y="53" class="rotulo">API REST Baozi Store</text>
+  <g fill="none" stroke="#526173" stroke-width="1.6"><path d="M 173 544 L 571 127" />
+<path d="M 173 544 L 571 183" />
+<path d="M 173 544 L 571 239" />
+<path d="M 173 544 L 571 295" />
+<path d="M 173 544 L 571 351" />
+<path d="M 173 544 L 571 452" />
+<path d="M 173 544 L 571 508" />
+<path d="M 173 544 L 571 564" />
+<path d="M 173 544 L 571 620" />
+<path d="M 173 544 L 571 676" />
+<path d="M 173 544 L 571 777" />
+<path d="M 173 544 L 571 833" />
+<path d="M 173 544 L 571 889" />
+<path d="M 173 544 L 571 945" />
+<path d="M 173 544 L 571 1001" /></g>
+  <g fill="none" stroke="#18202a" stroke-width="4" stroke-linecap="round">
+    <circle cx="117" cy="489" r="18" />
+    <path d="M 117 507 V 574 M 77 544 H 173 M 117 574 L 82 612 M 117 574 L 152 612" />
+  </g>
+  <text x="117" y="650" class="rotulo">Usuário da API</text>
+  <text x="790" y="88" class="rotulo">Cliente</text>
+<text x="790" y="413" class="rotulo">Produto</text>
+<text x="790" y="738" class="rotulo">Pedido</text>
+  
+<ellipse cx="790" cy="127" rx="219" ry="23" />
+<text x="790" y="135">Cadastrar cliente</text>
+
+<ellipse cx="790" cy="183" rx="219" ry="23" />
+<text x="790" y="191">Listar clientes</text>
+
+<ellipse cx="790" cy="239" rx="219" ry="23" />
+<text x="790" y="247">Consultar cliente por ID</text>
+
+<ellipse cx="790" cy="295" rx="219" ry="23" />
+<text x="790" y="303">Atualizar cliente</text>
+
+<ellipse cx="790" cy="351" rx="219" ry="23" />
+<text x="790" y="359">Excluir cliente</text>
+
+<ellipse cx="790" cy="452" rx="219" ry="23" />
+<text x="790" y="460">Cadastrar produto</text>
+
+<ellipse cx="790" cy="508" rx="219" ry="23" />
+<text x="790" y="516">Listar produtos</text>
+
+<ellipse cx="790" cy="564" rx="219" ry="23" />
+<text x="790" y="572">Consultar produto por ID</text>
+
+<ellipse cx="790" cy="620" rx="219" ry="23" />
+<text x="790" y="628">Atualizar produto</text>
+
+<ellipse cx="790" cy="676" rx="219" ry="23" />
+<text x="790" y="684">Excluir produto</text>
+
+<ellipse cx="790" cy="777" rx="219" ry="23" />
+<text x="790" y="785">Registrar pedido</text>
+
+<ellipse cx="790" cy="833" rx="219" ry="23" />
+<text x="790" y="841">Listar pedidos</text>
+
+<ellipse cx="790" cy="889" rx="219" ry="23" />
+<text x="790" y="897">Consultar pedido por ID</text>
+
+<ellipse cx="790" cy="945" rx="219" ry="23" />
+<text x="790" y="953">Atualizar pedido</text>
+
+<ellipse cx="790" cy="1001" rx="219" ry="23" />
+<text x="790" y="1009">Excluir pedido</text>
+</svg>
